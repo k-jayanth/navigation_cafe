@@ -13,6 +13,7 @@ setup(
             ['resource/' + package_name]),
         (os.path.join("share", package_name, "launch/"), glob("./launch/*")),
         (os.path.join("share", package_name, "config/"), glob("./config/*")),
+        (os.path.join("share", package_name, "params/"), glob("./params/*")),
         (
             os.path.join("share", package_name, "worlds/"),
             list(glob("./worlds/**/*.world", recursive=True)),
@@ -28,6 +29,10 @@ setup(
         (
             os.path.join("share", package_name, "maps/"),
             list(glob("./maps/**/*.yaml", recursive=True)),
+        ),
+        (
+            os.path.join("share", package_name, "behavior_trees/"),
+            glob("./behavior_trees/*"),
         ),
         ('share/' + package_name, ['package.xml']),
     ],
