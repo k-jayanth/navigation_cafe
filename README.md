@@ -3,4 +3,4 @@ Robot navigation within a cafe
 
 ## Simulation Environment
 
-![Alt text](media/Screenshot.png)
+![Alt text](media/simulation.png)
