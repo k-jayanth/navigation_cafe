@@ -1,0 +1,6 @@
+string target
+geometry_msgs/PoseStamped target_pose
+---
+bool success
+---
+geometry_msgs/PoseStamped base_position
