@@ -1,0 +1,9 @@
+string order
+uint8 timeout
+
+uint8 CONFIRMATION_KITCHEN = 0
+uint8 CONFIRMATION_TABLE1 = 1
+uint8 CONFIRMATION_TABLE2 = 2
+uint8 CONFIRMATION_TABLE3 = 3
+---
+bool success

@@ -17,8 +17,8 @@ find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  # Application actions
   "action/GoToTarget.action"
+  "srv/WaitForConfirmation.srv"
   DEPENDENCIES builtin_interfaces geometry_msgs nav_msgs std_msgs
 )
 
