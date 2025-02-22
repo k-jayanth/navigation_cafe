@@ -51,8 +51,15 @@ set(dependencies
 add_library(NavigateToTargetAction_bt_node SHARED src/navigate_to_target.cpp)
 list(APPEND plugin_libs NavigateToTargetAction_bt_node)
 
-add_library(robot_behaviour_tree SHARED src/go_to_target.cpp )
+add_library(WaitForConfirmation_bt_node SHARED src/wait_for_confirmation_condition.cpp)
+list(APPEND plugin_libs WaitForConfirmation_bt_node)
+
+add_library(robot_behaviour_tree SHARED 
+  src/go_to_target.cpp
+  src/wait_for_confirmation.cpp)
 rclcpp_components_register_node(robot_behaviour_tree PLUGIN "GoToTargetActionServer" EXECUTABLE go_to_target_action_server)
+
+rclcpp_components_register_node(robot_behaviour_tree PLUGIN "robot_behaviour_tree::WaitForConfirmation" EXECUTABLE wait_for_confirmation_condition_server)
 
 ament_target_dependencies(robot_behaviour_tree ${dependencies})
 
@@ -64,13 +71,10 @@ foreach(bt_plugin ${plugin_libs})
   target_compile_definitions(${bt_plugin} PRIVATE BT_PLUGIN_EXPORT)
 endforeach()
 
-install(
-  TARGETS robot_behaviour_tree ${plugin_libs}
-  EXPORT export_${PROJECT_NAME}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-  )
+install(TARGETS robot_behaviour_tree ${plugin_libs} EXPORT export_${PROJECT_NAME}
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin)
 
 install(
   DIRECTORY include/

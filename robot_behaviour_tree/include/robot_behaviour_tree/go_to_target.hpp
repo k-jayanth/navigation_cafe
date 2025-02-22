@@ -54,10 +54,8 @@ class GoToTargetActionServer : public rclcpp::Node {
   ActionStatus current_goal_status_, navigate_status_;
   geometry_msgs::msg::PoseStamped goal_pose_;
   int loop_rate_;
-//   double spin_angle_, backup_distance_;
   std::string target_;
 
-  // Our action server
   ActionT::Result::SharedPtr result_;
   ActionT::Goal::ConstSharedPtr goal_;
 };

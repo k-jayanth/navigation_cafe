@@ -22,7 +22,16 @@ def generate_launch_description():
         output="screen",
     )
 
+    wait_for_confirmation_server = Node(
+        package="robot_behaviour_tree",
+        namespace=namespace,
+        arguments=[],
+        executable="wait_for_confirmation_condition_server",
+        output="screen",
+    )
+
     ld.add_action(declare_namespace)
     ld.add_action(go_to_target_action_server)
+    ld.add_action(wait_for_confirmation_server)
 
     return ld

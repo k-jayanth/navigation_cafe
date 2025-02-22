@@ -10,27 +10,18 @@
 
 GoToTargetActionServer::GoToTargetActionServer(const rclcpp::NodeOptions &options)
     : Node("go_to_target_action_server", options) {
-  // Declare parameters
-//   declare_parameter("stop_on_failure", true);
+  
   declare_parameter("loop_rate", 20);
-//   declare_parameter("home_backup_distance", 1.0);
-//   declare_parameter("home_spin_angle", 3.14159);
   declare_parameter("target", "home");
 
-  // Configure
-//   stop_on_failure_ = get_parameter("stop_on_failure").as_bool();
   loop_rate_ = get_parameter("loop_rate").as_int();
-//   backup_distance_ = get_parameter("home_backup_distance").as_double();
-//   spin_angle_ = get_parameter("home_spin_angle").as_double();
   target_ = get_parameter("target").as_string();
 
-  // Action Clients
   nav_to_pose_client_ = rclcpp_action::create_client<NavigateClientT>(
       get_node_base_interface(), get_node_graph_interface(),
       get_node_logging_interface(), get_node_waitables_interface(),
       "navigate_to_pose", callback_group_);
 
-  // Action Server
   action_server_ = std::make_unique<ActionServer>(
       get_node_base_interface(), get_node_clock_interface(),
       get_node_logging_interface(), get_node_waitables_interface(), "go_to_target",
@@ -49,7 +40,6 @@ void GoToTargetActionServer::goToTarget() {
   goal_ = action_server_->get_current_goal();
   target_ = goal_->target;
 
-  // Check if request is valid
   if (!action_server_->is_server_active()) {
     RCLCPP_ERROR(get_logger(), "Action server is inactive. Rejecting goal.");
     result_->success = false;
@@ -57,7 +47,6 @@ void GoToTargetActionServer::goToTarget() {
     return;
   }
 
-  // Cancel any previous goals
   if (nav_to_pose_client_->action_server_is_ready()) {
     nav_to_pose_client_->async_cancel_all_goals();
   }
