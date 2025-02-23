@@ -12,6 +12,29 @@
           <FollowPath path="{path}" controller_id="FollowPath"/>
           <ClearEntireCostmap name="ClearLocalCostmap-Context" service_name="local_costmap/clear_entirely_local_costmap"/>
         </RecoveryNode>
+        <!-- Move to Kitchen -->
+        <Sequence name="MoveFromHomeToKitchen">
+          <NavigateToTarget target="kitchen"/>
+          <Wait wait_duration="2"/>
+        </Sequence>
+        <Sequence name="MoveFromKitchenToTable1">
+          <NavigateToTarget target="table1"/>
+          <WaitForConfirmation order="" timeout="120"/>
+        </Sequence>
+        <!-- Handle multiple orders (to Kitchen, then multiple tables) -->
+        <Sequence name="MoveFromHomeToKitchenToTable1ToTable2">
+          <WaitForConfirmation order="home kitchen table1 table2" timeout="120"/>
+        </Sequence>
+        <Sequence name="MoveFromHomeToKitchenToTable3">
+          <WaitForConfirmation order="home kitchen table3" timeout="120"/>
+        </Sequence>
+        <Sequence name="MoveFromHomeToTable3">
+          <WaitForConfirmation order="home table3" timeout="120"/>
+        </Sequence>
+        <!-- Move to Home -->
+        <Sequence name="MoveToHome">
+          <NavigateToTarget target="home"/>
+        </Sequence>
       </PipelineSequence>
       <ReactiveFallback name="RecoveryFallback">
         <GoalUpdated/>
